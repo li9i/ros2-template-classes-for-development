@@ -90,8 +90,10 @@ void TemplateClass::timer_callback()
 
 
 /*******************************************************************************
+* CAUTION. The message cannot be a reference in foxy
+* https://answers.ros.org/question/400785/problem-with-subscriber-ros2/
 */
-void TemplateClass::topic_callback(const std_msgs::msg::Empty& msg)
+void TemplateClass::topic_callback(const std_msgs::msg::Empty::SharedPtr msg)
 {
   RCLCPP_INFO(this->get_logger(), "topic_callback called");
 }

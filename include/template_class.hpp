@@ -41,7 +41,7 @@ class TemplateClass final : public rclcpp::Node
     // Methods
 
     // The callback of a subscriber
-    void topic_callback(const std_msgs::msg::Empty& msg);
+    void topic_callback(const std_msgs::msg::Empty::SharedPtr msg);
 
     // The callback of a timer
     void timer_callback();
