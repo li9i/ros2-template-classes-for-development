@@ -47,6 +47,7 @@ install(TARGETS ${library_name}
   RUNTIME DESTINATION bin
 )
 
+# So that `ros2 run` can find the executable
 install(TARGETS ${executable_name}
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
