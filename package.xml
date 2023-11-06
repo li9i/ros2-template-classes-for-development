@@ -23,7 +23,7 @@
 
   <export>
     <build_type>ament_cmake</build_type>
-    <ros1_bridge mapping_rules="srv/my_mapping_rules.yaml"/>
-    <ros1_bridge mapping_rules="msg/my_mapping_rules.yaml"/>
+    <ros1_bridge mapping_rules="msg/custom_msg_mapping_rules.yaml"/>
+    <ros1_bridge mapping_rules="srv/custom_srv_mapping_rules.yaml"/>
   </export>
 </package>

@@ -76,12 +76,12 @@ rosidl_target_interfaces(${library_name}
 
 # Install message mapping rules
 install(
-  FILES msg/my_mapping_rules.yaml
+  FILES msg/custom_msg_mapping_rules.yaml
   DESTINATION share/${PROJECT_NAME}/msg)
 
 # Install service mapping rules
 install(
-  FILES srv/my_mapping_rules.yaml
+  FILES srv/custom_srv_mapping_rules.yaml
   DESTINATION share/${PROJECT_NAME}/srv)
 ################################################################################
 
