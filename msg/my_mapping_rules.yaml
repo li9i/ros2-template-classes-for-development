@@ -1,0 +1,8 @@
+-
+  ros1_package_name: 'ros1_pkg'
+  ros1_message_name: 'custom_msg'
+  ros2_package_name: 'ros2_templates_pkg'
+  ros2_message_name: 'CustomMsg'
+  fields_1_to_2:
+    header: 'header'
+    pose: 'pose'

@@ -5,6 +5,14 @@
 #include "std_msgs/msg/empty.hpp"
 #include "std_srvs/srv/trigger.hpp"
 
+// CAUTION with messages' and services' names.
+// They are required to be in PascalCase as file names and C++ types
+// (e.g.) ros2_templates_pkg::msg::CustomMsg
+// and    ros2_templates_pkg::srv::CustomSrv
+// but their headers are transcripted in snake_case.
+#include "ros2_templates_pkg/msg/custom_msg.hpp"
+#include "ros2_templates_pkg/srv/custom_srv.hpp"
+
 /*******************************************************************************
 */
 class TemplateClass final : public rclcpp::Node

@@ -16,6 +16,10 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+
 
 include_directories(include
 )
@@ -55,6 +59,35 @@ install(TARGETS ${executable_name}
 install(DIRECTORY include/
   DESTINATION include/
 )
+
+
+################################################################################
+# For custom messages and services
+################################################################################
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/CustomMsg.msg"
+  "srv/CustomSrv.srv"
+  DEPENDENCIES std_msgs geometry_msgs
+ )
+ament_export_dependencies(rosidl_default_runtime)
+
+rosidl_target_interfaces(${library_name}
+  ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
+# Install message mapping rules
+install(
+  FILES msg/my_mapping_rules.yaml
+  DESTINATION share/${PROJECT_NAME}/msg)
+
+# Install service mapping rules
+install(
+  FILES srv/my_mapping_rules.yaml
+  DESTINATION share/${PROJECT_NAME}/srv)
+################################################################################
+
+
+
+
 
 ament_export_include_directories(include)
 ament_export_libraries(${library_name})
