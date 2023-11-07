@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ros2_templates_pkg)
+project(msg_srv_pkg_cpp)
 
 # Default to C++17
 if(NOT CMAKE_CXX_STANDARD)

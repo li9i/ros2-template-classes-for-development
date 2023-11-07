@@ -7,11 +7,11 @@
 
 // CAUTION with messages' and services' names.
 // They are required to be in PascalCase as file names and C++ types
-// (e.g.) ros2_templates_pkg::msg::CustomMsg
-// and    ros2_templates_pkg::srv::CustomSrv
+// (e.g.) msg_srv_pkg_cpp::msg::CustomMsg
+// and    msg_srv_pkg_cpp::srv::CustomSrv
 // but their headers are transcripted in snake_case.
-#include "ros2_templates_pkg/msg/custom_msg.hpp"
-#include "ros2_templates_pkg/srv/custom_srv.hpp"
+#include "msg_srv_pkg_cpp/msg/custom_msg.hpp"
+#include "msg_srv_pkg_cpp/srv/custom_srv.hpp"
 
 /*******************************************************************************
 */
