@@ -27,6 +27,9 @@ class TemplateClass final : public rclcpp::Node
     // *************************************************************************
     // Variables
 
+    // A parameter
+    std::string my_parameter_;
+
     // A subscriber
     rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr subscription_;
 

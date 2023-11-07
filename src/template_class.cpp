@@ -7,37 +7,51 @@ TemplateClass::TemplateClass() : Node("node_name")
 {
   RCLCPP_INFO(this->get_logger(), "Init");
 
-  // A subscriber
+  // A parameter description ---------------------------------------------------
+  rcl_interfaces::msg::ParameterDescriptor my_parameter_desc =
+    rcl_interfaces::msg::ParameterDescriptor{};
+  my_parameter_desc.description = "Description of parameter";
+
+  // Declare parameter `my_parameter`; set its default value and description
+  this->declare_parameter("my_parameter", "default_value", my_parameter_desc);
+
+  // Get the value of `my_parameter`
+  my_parameter_ = this->get_parameter("my_parameter").as_string();
+
+  // Set the value of `my_parameter`
+  this->set_parameter(rclcpp::Parameter("my_parameter", "value_1"));
+
+  // A subscriber --------------------------------------------------------------
   subscription_ = this->create_subscription<std_msgs::msg::Empty>(
     "subscription_topic_name",
     10,
     std::bind(&TemplateClass::topic_callback, this, std::placeholders::_1));
 
-  // A publisher
+  // A publisher ---------------------------------------------------------------
   publisher_ =
     this->create_publisher<std_msgs::msg::Empty>("publisher_topic_name", 10);
 
+  // A service (server) --------------------------------------------------------
   // https://robotics.stackexchange.com/questions/88250/ros2-error-creating-a-service-server-as-a-member-function
-  // A service (server)
   service_ = this->create_service<std_srvs::srv::Trigger>("service_offered_name",
     std::bind(&TemplateClass::service_callback, this,
       std::placeholders::_1, std::placeholders::_2));
 
-  // Create callback group for service client(s)
+  // Create callback group for service client(s) -------------------------------
   cb_group_client_ = this->create_callback_group(
     rclcpp::CallbackGroupType::MutuallyExclusive);
 
-  // Create callback group for timer(s)
+  // Create callback group for timer(s) ----------------------------------------
   cb_group_timer_ = this->create_callback_group(
     rclcpp::CallbackGroupType::MutuallyExclusive);
 
-  // A service client.
+  // A service client ----------------------------------------------------------
   // If more they should belong to the same callback group
   service_client_ =
     this->create_client<std_srvs::srv::Trigger>("service_called_name",
       rmw_qos_profile_services_default, cb_group_client_);
 
-  // A timer
+  // A timer -------------------------------------------------------------------
   timer_ = this->create_wall_timer(
     std::chrono::seconds(1),
     std::bind(&TemplateClass::timer_callback, this),

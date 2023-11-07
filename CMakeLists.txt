@@ -60,6 +60,12 @@ install(DIRECTORY include/
   DESTINATION include/
 )
 
+# Install the launcher
+install(
+  DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
 
 ################################################################################
 # For custom messages and services
