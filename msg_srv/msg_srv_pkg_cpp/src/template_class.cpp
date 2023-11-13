@@ -18,8 +18,14 @@ TemplateClass::TemplateClass() : Node("node_name")
   // Get the value of `my_parameter`
   my_parameter_ = this->get_parameter("my_parameter").as_string();
 
+  RCLCPP_INFO(this->get_logger(),
+    "value of param my_parameter after get = %s", my_parameter_.c_str());
+
   // Set the value of `my_parameter`
   this->set_parameter(rclcpp::Parameter("my_parameter", "value_1"));
+
+  RCLCPP_INFO(this->get_logger(),
+    "value of param my_parameter after set = %s", my_parameter_.c_str());
 
   // A subscriber --------------------------------------------------------------
   subscription_ = this->create_subscription<std_msgs::msg::Empty>(

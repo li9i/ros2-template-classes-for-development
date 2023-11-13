@@ -1,0 +1,3 @@
+template_class_node:
+  ros__parameters:
+    my_parameter: "earth_from_yaml"

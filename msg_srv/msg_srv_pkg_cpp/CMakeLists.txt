@@ -60,11 +60,19 @@ install(DIRECTORY include/
   DESTINATION include/
 )
 
-# Install the launcher
+# Install launchers
 install(
   DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )
+
+# Install params
+install(
+  DIRECTORY config
+  DESTINATION share/${PROJECT_NAME}
+)
+
+
 
 
 ################################################################################
