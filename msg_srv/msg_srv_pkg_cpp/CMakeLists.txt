@@ -45,36 +45,6 @@ add_executable(${executable_name}
 target_link_libraries(${executable_name} ${library_name})
 
 
-install(TARGETS ${library_name}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-)
-
-# So that `ros2 run` can find the executable
-install(TARGETS ${executable_name}
-  RUNTIME DESTINATION lib/${PROJECT_NAME}
-)
-
-install(DIRECTORY include/
-  DESTINATION include/
-)
-
-# Install launchers
-install(
-  DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
-)
-
-# Install params
-install(
-  DIRECTORY config
-  DESTINATION share/${PROJECT_NAME}
-)
-
-
-
-
 ################################################################################
 # For custom messages and services
 ################################################################################
@@ -100,10 +70,43 @@ install(
 ################################################################################
 
 
+################################################################################
+# Installs
+################################################################################
+install(TARGETS ${library_name}
+  EXPORT export_${library_name}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
+# So that `ros2 run` can find the executable
+install(TARGETS ${executable_name}
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY include/
+  DESTINATION include
+)
+
+# Install launchers
+install(
+  DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# Install params
+install(
+  DIRECTORY config
+  DESTINATION share/${PROJECT_NAME}
+)
 
 
 
-ament_export_include_directories(include)
-ament_export_libraries(${library_name})
-ament_export_dependencies(${dependencies})
+################################################################################
+ament_export_targets(export_${library_name} HAS_LIBRARY_TARGET)
+#ament_export_dependencies(some_dependency)
+
+
+################################################################################
 ament_package()
