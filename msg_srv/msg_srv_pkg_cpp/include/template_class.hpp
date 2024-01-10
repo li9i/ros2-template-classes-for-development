@@ -58,6 +58,10 @@ class TemplateClass final : public rclcpp::Node
     // *************************************************************************
     // Methods
 
+    // The callback of the response of the service client
+    void receive_service_response(const
+      rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future);
+
     // The callback of a subscriber
     void topic_callback(const std_msgs::msg::Empty& msg);
 
