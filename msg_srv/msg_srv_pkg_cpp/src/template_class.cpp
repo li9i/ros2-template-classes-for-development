@@ -18,7 +18,7 @@ TemplateClass::TemplateClass() : Node("node_name")
   // Get the value of `my_parameter`
   my_parameter_ = this->get_parameter("my_parameter").as_string();
 
- RCLCPP_INFO(this->get_logger(),
+  RCLCPP_INFO(this->get_logger(),
     "value of param my_parameter after get = %s", my_parameter_.c_str());
 
   // Set the value of `my_parameter`
@@ -66,6 +66,21 @@ TemplateClass::TemplateClass() : Node("node_name")
 
 
 /*******************************************************************************
+ * https://answers.ros.org/question/376294/ros2-async_send_request-callback/
+ * https://answers.ros.org/question/402688/how-to-access-the-response-of-async-request-from-a-client/
+ * Also with lambdas:
+ * https://github.com/ros2/demos/blob/40e3732791c8c72215a5eb954e9e25be1a5ebb73/demo_nodes_cpp/src/services/add_two_ints_client_async.cpp#L62..L73
+ */
+void TemplateClass::receive_service_response(const
+  rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future)
+{
+  this->service_response_ptr_ = future.get();
+  service_response_success_ = this->service_response_ptr_->success;
+  service_response_message_ = this->service_response_ptr_->message;
+}
+
+
+/*******************************************************************************
 */
 void TemplateClass::timer_callback()
 {
@@ -84,7 +99,9 @@ void TemplateClass::timer_callback()
 
   // Craft request
   auto request = std::make_shared<std_srvs::srv::Trigger::Request>();
-  auto result_future = service_client_->async_send_request(request);
+  auto result_future = service_client_->async_send_request(request,
+    std::bind(&TemplateClass::receive_service_response,
+      this, std::placeholders::_1));
 
   while (rclcpp::ok())
   {

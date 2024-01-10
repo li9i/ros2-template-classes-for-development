@@ -38,7 +38,14 @@ class TemplateClass final : public rclcpp::Node
 
     // A service (server)
     rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr service_;
+
+    // A service client
     rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr service_client_;
+
+    // A pointer to a trigger response
+    std_srvs::srv::Trigger::Response::SharedPtr service_response_ptr_;
+    bool service_response_success_;
+    std::string service_response_message_;
 
     // A timer
     rclcpp::TimerBase::SharedPtr timer_;
@@ -50,6 +57,10 @@ class TemplateClass final : public rclcpp::Node
 
     // *************************************************************************
     // Methods
+
+    // The callback of the response of the service client
+    void receive_service_response(const
+      rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future);
 
     // The callback of a subscriber
     void topic_callback(const std_msgs::msg::Empty::SharedPtr msg);
